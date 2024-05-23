@@ -1,0 +1,46 @@
+version: '3.9'
+services:
+  frontend:
+    build: /home/ahmed/App2/ecommerce-master
+    container_name: frontend
+    ports:
+      - "4000:4000"
+    networks:
+      ourapp_default:
+        ipv4_address: 172.20.0.2
+
+
+  product-catalog:
+    build: /home/ahmed/App2/product-catalog-service-main
+    container_name: product-catalog
+    ports:
+      - "8080:8080"
+    networks:
+      ourapp_default:
+        ipv4_address: 172.20.0.3
+
+  cart:
+    build: /home/ahmed/App2/shopping-cart-service-main
+    container_name: cart
+    ports:
+      - "3000:3000"
+    networks:
+      ourapp_default:
+        ipv4_address: 172.20.0.4
+
+
+  auth-service:
+    build: /home/ahmed/App2/auth-service-main
+    container_name: auth-service
+    ports:
+      - "5000:5000"
+    networks:
+      ourapp_default:
+        ipv4_address: 172.20.0.5
+
+networks:
+  ourapp_default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
